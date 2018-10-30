@@ -17,10 +17,10 @@ var CreateAccount = func(w http.ResponseWriter, r *http.Request) {
 	}
 
 	resp := account.Create() //Create account
-	if resp["status"] == false {
-		u.Respond(w, http.StatusForbidden, resp)
-	} else if resp["status"] == true {
+	if resp["status"] . (bool) {
 		u.Respond(w, http.StatusOK, resp)
+	} else {
+		u.Respond(w, http.StatusForbidden, resp)
 	}
 }
 
@@ -34,10 +34,10 @@ var Authenticate = func(w http.ResponseWriter, r *http.Request) {
 	}
 
 	resp := models.Login(account.Email, account.Password)
-	if resp["status"] == false {
-		u.Respond(w, http.StatusForbidden, resp)
-	} else if resp["status"] == true {
+	if resp["status"] . (bool) {
 		u.Respond(w, http.StatusOK, resp)
+	} else {
+		u.Respond(w, http.StatusForbidden, resp)
 	}
 }
 

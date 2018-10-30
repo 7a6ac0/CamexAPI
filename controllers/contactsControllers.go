@@ -4,6 +4,7 @@ import (
 	"cashgone/models"
 	u "cashgone/utils"
 	"encoding/json"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
@@ -20,17 +21,17 @@ var CreateContact = func(w http.ResponseWriter, r *http.Request) {
 
 	contact.UserId = user
 	resp := contact.Create()
-	if resp["status"] == false {
-		u.Respond(w, http.StatusForbidden, resp)
-	} else if resp["status"] == true {
+	if resp["status"] . (bool) {
 		u.Respond(w, http.StatusOK, resp)
+	} else {
+		u.Respond(w, http.StatusForbidden, resp)
 	}
 
 }
 
 var GetContacts = func(w http.ResponseWriter, r *http.Request) {
-	user_id := r.Context().Value("user") . (uint)
-	data := models.GetContacts(user_id)
+	userId := r.Context().Value("user") . (uint)
+	data := models.GetContacts(userId)
 	if data == nil {
 		u.Respond(w, http.StatusForbidden, u.Message(false, "User is not recognized"))
 		return
@@ -40,7 +41,16 @@ var GetContacts = func(w http.ResponseWriter, r *http.Request) {
 	u.Respond(w, http.StatusOK, resp)
 }
 
-//var GetContact = func(w http.ResponseWriter, r *http.Request) {
-//	user_id := r.Context().Value("user") . (uint)
-//
-//}
+var GetContact = func(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	userId := r.Context().Value("user") . (uint)
+	contactId := params["id"]
+	data := models.GetContact(userId, contactId)
+	if data == nil {
+		u.Respond(w, http.StatusForbidden, u.Message(false, "Contact is not found"))
+		return
+	}
+	resp := u.Message(true, "success")
+	resp["data"] = data
+	u.Respond(w, http.StatusOK, resp)
+}

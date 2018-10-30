@@ -2,7 +2,6 @@ package models
 
 import (
 	u "cashgone/utils"
-	"fmt"
 	"github.com/jinzhu/gorm"
 )
 
@@ -49,22 +48,19 @@ func (contact *Contact) Create() (map[string] interface{}) {
 	return resp
 }
 
-func GetContact(user_id, id uint) (*Contact) {
-
+func GetContact(userId uint, contactId string) (*Contact) {
 	contact := &Contact{}
-	err := GetDB().Table("contacts").Where("user_id = ? and id = ?", user_id, id).First(contact).Error
-	if err != nil {
+	if err := GetDB().Table("contacts").Where("user_id = ? and id = ?", userId, contactId).First(contact).Error;
+	err != nil {
 		return nil
 	}
 	return contact
 }
 
 func GetContacts(user uint) ([]*Contact) {
-
 	contacts := make([]*Contact, 0)
-	err := GetDB().Table("contacts").Where("user_id = ?", user).Find(&contacts).Error
-	if err != nil {
-		fmt.Println(err)
+	if err := GetDB().Table("contacts").Where("user_id = ?", user).Find(&contacts).Error;
+	err != nil {
 		return nil
 	}
 
