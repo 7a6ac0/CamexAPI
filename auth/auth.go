@@ -1,8 +1,8 @@
 package auth
 
 import (
-	"cashgone/models"
-	u "cashgone/utils"
+	"CamexAPI/models"
+	u "CamexAPI/utils"
 	"context"
 	"github.com/dgrijalva/jwt-go"
 	"net/http"
@@ -15,8 +15,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		notAuth := []string { //List of endpoints that doesn't require auth
-			"/api/user/new",
-			"/api/user/login",
+			"/api/get_token",
 		}
 		requestPath := r.URL.Path //current request path
 
@@ -30,7 +29,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 		}
 
 		response := make(map[string] interface{})
-		tokenHeader := r.Header.Get("Authorization") //Grab the token from the header
+		tokenHeader := r.Header.Get("authorization") //Grab the token from the header
 
 		if tokenHeader == "" { //Token is missing, returns with error code 403 Unauthorized
 			response = u.Message(false, "Missing auth token")
@@ -66,7 +65,7 @@ var JwtAuthentication = func(next http.Handler) http.Handler {
 
 		//Everything went well, proceed with the request and set the caller to the user retrieved from the parsed token
 		//fmt.Sprintf("User %", tk.UserId) //Useful for monitoring
-		ctx := context.WithValue(r.Context(), "user", tk.UserId)
+		ctx := context.WithValue(r.Context(), "imei", tk.Imei)
 		r = r.WithContext(ctx)
 		next.ServeHTTP(w, r) //proceed in the middleware chain!
 	})

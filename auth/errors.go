@@ -1,7 +1,7 @@
 package auth
 
 import (
-	u "cashgone/utils"
+	u "CamexAPI/utils"
 	"net/http"
 )
 
