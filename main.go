@@ -14,7 +14,7 @@ func main() {
 	router := mux.NewRouter()
 
 	//router.HandleFunc("/api/user/new", controllers.CreateAccount).Methods("POST")
-	router.HandleFunc("/api/get_token", controllers.GetToken).Methods("POST")
+	router.HandleFunc("/api/get_token", controllers.GetToken).Methods("GET").Queries("imei", "{imei}")
 	router.HandleFunc("/api/data/new", controllers.CreateData).Methods("POST")
 	router.HandleFunc("/api/datas", controllers.GetDatas).Methods("GET") //  user/2/contacts
 	//router.HandleFunc("/api/data/{id:[0-9]+}", controllers.GetData).Methods("GET")

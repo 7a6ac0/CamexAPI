@@ -3,7 +3,6 @@ package controllers
 import (
 	"CamexAPI/models"
 	u "CamexAPI/utils"
-	"encoding/json"
 	"net/http"
 )
 
@@ -25,12 +24,8 @@ import (
 //}
 
 var GetToken = func(w http.ResponseWriter, r *http.Request) {
-	token := &models.Token{}
-	err := json.NewDecoder(r.Body).Decode(token) //decode the request body into struct and failed if any error occur
-	if err != nil {
-		u.Respond(w, http.StatusForbidden, u.Message(false, "Invalid request"))
-		return
-	}
+	imei := r.FormValue("imei")
+	token := &models.Token{ Imei: imei }
 
 	resp := token.CreateToken()
 	if resp["status"] . (bool) {

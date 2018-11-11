@@ -72,7 +72,7 @@ func (token *Token) CreateToken() (map[string]interface{}) {
 	//Create JWT token
 	tk := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"imei": token.Imei,
-		"exp": time.Now().Add(time.Minute * 2).Unix(),
+		"exp": time.Now().Add(time.Hour * 2).Unix(),
 	})
 	tokenString, _ := tk.SignedString([]byte(os.Getenv("token_password")))
 
