@@ -43,6 +43,7 @@ func (data *Data) Validate() (map[string] interface{}, bool) {
 
 func (data *Data) Create() (map[string] interface{}) {
 	if resp, ok := data.Validate(); !ok {
+		resp["data"] = data
 		return resp
 	}
 
