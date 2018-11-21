@@ -76,7 +76,7 @@ func (token *Token) CreateToken() (map[string]interface{}) {
 	})
 	tokenString, _ := tk.SignedString([]byte(os.Getenv("token_password")))
 
-	resp := u.Message(true, "Get Token")
+	resp := u.Message(true, "Success")
 	resp["token"] = tokenString
 	return resp
 }

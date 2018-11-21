@@ -32,7 +32,7 @@ var GetDatas = func(w http.ResponseWriter, r *http.Request) {
 		u.Respond(w, http.StatusForbidden, u.Message(false, "Data is not recognized"))
 		return
 	}
-	resp := u.Message(true, "success")
+	resp := u.Message(true, "Success")
 	resp["data"] = datas
 	u.Respond(w, http.StatusOK, resp)
 }
