@@ -36,17 +36,3 @@ var GetDatas = func(w http.ResponseWriter, r *http.Request) {
 	resp["data"] = datas
 	u.Respond(w, http.StatusOK, resp)
 }
-
-//var GetData = func(w http.ResponseWriter, r *http.Request) {
-//	params := mux.Vars(r)
-//	userId := r.Context().Value("user") . (uint)
-//	contactId := params["id"]
-//	data := models.GetData(userId, contactId)
-//	if data == nil {
-//		u.Respond(w, http.StatusForbidden, u.Message(false, "Data is not found"))
-//		return
-//	}
-//	resp := u.Message(true, "success")
-//	resp["data"] = data
-//	u.Respond(w, http.StatusOK, resp)
-//}
