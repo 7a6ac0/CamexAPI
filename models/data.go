@@ -56,7 +56,7 @@ func (data *Data) Create() (map[string] interface{}) {
 
 func GetDatas(imei string) ([]*Data) {
 	datas := make([]*Data, 0)
-	if err := GetDB().Table("data").Where("imei = ?", imei).Find(&datas).Error;
+	if err := GetDB().Table("datas").Where("imei = ?", imei).Find(&datas).Error;
 	err != nil {
 		return nil
 	}
