@@ -10,7 +10,7 @@ type Data struct {
 	DataId string `json:"data_id"`
 	Path string `json:"path"`
 	Md5 string `json:"md5"`
-	Timestamp int64 `json:"timestamp"`
+	Timestamp uint `json:"timestamp"`
 	Imei string `json:"imei"` //The user that this contact belongs to
 }
 
@@ -56,7 +56,7 @@ func (data *Data) Create() (map[string] interface{}) {
 
 func GetDatas(imei string) ([]*Data) {
 	datas := make([]*Data, 0)
-	if err := GetDB().Table("datas").Where("imei = ?", imei).Find(&datas).Error;
+	if err := GetDB().Table("data").Where("imei = ?", imei).Find(&datas).Error;
 	err != nil {
 		return nil
 	}
